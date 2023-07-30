@@ -1,0 +1,41 @@
+body{
+    font-family: 'Michroma', sans-serif;
+    font-family: 'Rubik', sans-serif;
+    background-color: white;
+    user-select: none;
+    text-align: center;
+}
+h1{
+    color: blue;
+    text-align: center;
+    font-size: 8vw;
+}
+h2{
+    color: gold;
+    text-align: center;
+    font-size: 3vw;
+}
+h3{
+    color: gold;
+    text-align: center;
+    font-size: 3vw;
+}
+p{
+    color: gold;
+    text-align: center;
+}
+.output {
+    margin-top: 20px;
+    font-weight: bold;
+}
+button{
+    margin-top: 5%;
+    width: 20%;
+    height: 30%;
+    font-family: 'Rubik', sans-serif;
+    background-color: white;
+}
+button:hover{
+    background-color: black;
+    color: white;
+}

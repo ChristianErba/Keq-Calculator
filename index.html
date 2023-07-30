@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>KEQ Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Rubik&display=swap" rel="stylesheet">
+</head>
+<body>
+	<h1>KEQ Calculator</h1>
+	
+	<script>
+		function grafica() {
+			console.log("################################");
+			console.log("##                            ##");
+			console.log("##       KEQ CALCULATOR       ##");
+			console.log("##                            ##");
+			console.log("################################");
+		}
+
+		function principale() {
+			var numeroreagenti = parseInt(document.getElementById("numeroreagenti").value);
+			var numeroprodotti = parseInt(document.getElementById("numeroprodotti").value);
+			var coefficiente, concentrazione;
+			var concentrazionereagenti = 1.0, concentrazioneprodotti = 1.0;
+			var costantediequilibrio;
+			var i;
+
+			for (i = 0; i < numeroreagenti; i++) {
+				concentrazione = parseFloat(document.getElementById("reagente-concentrazione-" + i).value);
+				coefficiente = parseFloat(document.getElementById("reagente-coefficiente-" + i).value);
+				concentrazionereagenti *= Math.pow(concentrazione, coefficiente);
+			}
+
+			for (i = 0; i < numeroprodotti; i++) {
+				concentrazione = parseFloat(document.getElementById("prodotto-concentrazione-" + i).value);
+				coefficiente = parseFloat(document.getElementById("prodotto-coefficiente-" + i).value);
+				concentrazioneprodotti *= Math.pow(concentrazione, coefficiente);
+			}
+
+			costantediequilibrio = concentrazioneprodotti / concentrazionereagenti;
+
+			var outputElement = document.getElementById("output");
+
+			if (costantediequilibrio > 1) {
+				outputElement.innerHTML = "L' EQUILIBRIO E' NEI PRODOTTI.";
+			} else if (costantediequilibrio < 1) {
+				outputElement.innerHTML = "L' EQUILIBRIO E' NEI REAGENTI.";
+			} else {
+				outputElement.innerHTML = "E' IN PERFETTO EQUILIBRIO!";
+			}
+
+			outputElement.innerHTML += "<br>LA COSTANTE DI EQUILIBRIO E': " + costantediequilibrio;
+		}
+
+		grafica();
+	</script>
+	<h3 style="text-align: center;">Reagenti</h3>
+	<label for="numeroreagenti">Numero dei reagenti:</label><br>
+	<input type="number" id="numeroreagenti" style="border-style: solid;width: 15%">
+
+	<div id="reagenti-input"></div>
+
+	<h3 style="text-align: center;">Prodotti</h3>
+	<label for="numeroprodotti">Numero dei prodotti:</label><br>
+	<input type="number" id="numeroprodotti" style="width: 15%;border-style: solid;">
+
+	<div id="prodotti-input"></div>
+
+	<button onclick="principale()">Calcola</button>
+
+	<div class="output" id="output"></div>
+
+	<script>
+		var numeroreagentiInput = document.getElementById("numeroreagenti");
+		var numeroprodottiInput = document.getElementById("numeroprodotti");
+
+		numeroreagentiInput.addEventListener("change", function () {
+			var numeroreagenti = parseInt(numeroreagentiInput.value);
+			var reagentiInput = document.getElementById("reagenti-input");
+			reagentiInput.innerHTML = ""; // Rimuovi gli input precedenti
+
+			for (var i = 0; i < numeroreagenti; i++) {
+				var inputConcentrazione = document.createElement("input");
+				inputConcentrazione.type = "number";
+				inputConcentrazione.id = "reagente-concentrazione-" + i;
+				inputConcentrazione.placeholder = "Concentrazione reagente " + (i + 1);
+
+				var inputCoefficiente = document.createElement("input");
+				inputCoefficiente.type = "number";
+				inputCoefficiente.id = "reagente-coefficiente-" + i;
+				inputCoefficiente.placeholder = "Coefficiente reagente " + (i + 1);
+
+				reagentiInput.appendChild(inputConcentrazione);
+				reagentiInput.appendChild(inputCoefficiente);
+			}
+		});
+
+		numeroprodottiInput.addEventListener("change", function () {
+			var numeroprodotti = parseInt(numeroprodottiInput.value);
+
+			var prodottiInput = document.getElementById("prodotti-input");
+			prodottiInput.innerHTML = ""; // Rimuovi gli input precedenti
+
+			for (var i = 0; i < numeroprodotti; i++) {
+				var inputConcentrazione = document.createElement("input");
+				inputConcentrazione.type = "number";
+				inputConcentrazione.id = "prodotto-concentrazione-" + i;
+				inputConcentrazione.placeholder = "Concentrazione prodotto " + (i + 1);
+
+				var inputCoefficiente = document.createElement("input");
+				inputCoefficiente.type = "number";
+				inputCoefficiente.id = "prodotto-coefficiente-" + i;
+				inputCoefficiente.placeholder = "Coefficiente prodotto " + (i + 1);
+
+				prodottiInput.appendChild(inputConcentrazione);
+				prodottiInput.appendChild(inputCoefficiente);
+			}
+		});
+	</script>
+</body>
+</html>
+
