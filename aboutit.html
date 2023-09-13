@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>KEQ Calculator</title>
+    <link rel="stylesheet" href="style.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+<body>
+    <style>
+        .material-symbols-outlined {
+          font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24
+        }
+        </style>
+        <span class="material-symbols-outlined" style="color: white; margin-left: -95%; font-size: 50px;" onclick="location.href='index.html'">
+            arrow_back
+            </span>
+    <h1 style="margin-top: 15%;">Costante di equilibiro</h1>
+    <p style="color: white;">Cos'è e come si calcola?<hr></p>
+    <h1 style="margin-top: 20%;">Cos'è?</h1>
+    <p style="color: white; font-size: 30px;">La costante di equilibrio(Keq) è un valore espresso senza unità di misura che serve per capire se una reazine è spostata verso i reagenti, verso i prodotti o si trova al centro.</p>
+    <h1>Come si calcola?</h1>
+    <img src="formulakeq.png" alt="Oops... Qualcosa è andato storto!" style="border-radius: 12px;">
+    <h1>Il codice</h1>
+    <p style="color: white; font-size: 30px;">Ecco a voi il codice open source in javascript per calcolare la costante di equilibrio:</p>
+    <div id="codice">
+        <pre>
+          <code style="color: black; background-color: white; user-select: all;">
+            function grafica() {
+                console.log("################################");
+                console.log("##                            ##");
+                console.log("##       KEQ CALCULATOR       ##");
+                console.log("##                            ##");
+                console.log("################################");
+            }
+    
+            function principale() {
+                var numeroreagenti = parseInt(document.getElementById("numeroreagenti").value);
+                var numeroprodotti = parseInt(document.getElementById("numeroprodotti").value);
+                var coefficiente, concentrazione;
+                var concentrazionereagenti = 1.0, concentrazioneprodotti = 1.0;
+                var costantediequilibrio;
+                var i;
+    
+                for (i = 0; i < numeroreagenti; i++) {
+                    concentrazione = parseFloat(document.getElementById("reagente-concentrazione-" + i).value);
+                    coefficiente = parseFloat(document.getElementById("reagente-coefficiente-" + i).value);
+                    concentrazionereagenti *= Math.pow(concentrazione, coefficiente);
+                }
+    
+                for (i = 0; i < numeroprodotti; i++) {
+                    concentrazione = parseFloat(document.getElementById("prodotto-concentrazione-" + i).value);
+                    coefficiente = parseFloat(document.getElementById("prodotto-coefficiente-" + i).value);
+                    concentrazioneprodotti *= Math.pow(concentrazione, coefficiente);
+                }
+    
+                costantediequilibrio = concentrazioneprodotti / concentrazionereagenti;
+    
+                var outputElement = document.getElementById("output");
+    
+                if (costantediequilibrio > 1) {
+                    outputElement.innerHTML = "L' EQUILIBRIO E' NEI PRODOTTI.";
+                } else if (costantediequilibrio < 1) {
+                    outputElement.innerHTML = "L' EQUILIBRIO E' NEI REAGENTI.";
+                } else {
+                    outputElement.innerHTML = "E' IN PERFETTO EQUILIBRIO!";
+                }
+    
+                outputElement.innerHTML += "<br>LA COSTANTE DI EQUILIBRIO E': " + costantediequilibrio;
+            }
+          </code>
+        </pre>
+      </div>
+      
+</body>
